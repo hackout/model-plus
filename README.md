@@ -2,9 +2,9 @@
 
 安装方式\
 命令行执行
-``` composer require dennislui/model-plus ```\
+``` composer require dennislui/model-plus ```
 
-在composer.json插入 \
+在composer.json插入 
 ```
 
     "repositories": [
@@ -16,7 +16,7 @@
 ```
 
 Provider\
-在 ```config\app.php```中的```providers```项中插入\
+在 ```config\app.php```中的```providers```项中插入
 ```
     'providers' => [
     	...,
@@ -55,7 +55,7 @@ public function thumbnails()
 对于Base64的文件需要携带头```data:image/png;base64,代码``` \
 Request提交的文件必须要是UploadFile容器的\
 图片地址为本地完整\
-示例代码: \
+示例代码: 
 ```
 use DennisLui\ModelPlus\Models\File as FileModel;
 
@@ -80,7 +80,7 @@ $fileModel = FileModel::makeData($file,'avatar',$user);
 - quality: Image quality, from 0 - 100 (default: 90)
 
 ```local_path``` 本地文件地址\
-```path``` URL预览地址\
+```path``` URL预览地址
 
 
 ## 模型请求优化
@@ -170,7 +170,7 @@ Route::prefix('模块名')->middleware('api')
 
 ### Config
 
-在.env 中可设置参数 \
+在.env 中可设置参数 
 ```
 API_LIMIT = 60 #API请求限制每秒次数
 
