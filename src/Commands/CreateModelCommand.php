@@ -79,7 +79,7 @@ class CreateModelCommand extends Command {
 		foreach ($this->stubs as $key => $rs) {
 			$twig = new \Twig\Environment($loader);
             $file_name = $twig->render($key, $this->getVars());
-            $files[$file_name] = file_get_contents(app_path('Console/Commands/'.$key));
+            $files[$file_name] = file_get_contents(dirname(__DIR__).'/'.$key);
 		}
         if(!$files) return ;
         $loader = new \Twig\Loader\ArrayLoader($files);
