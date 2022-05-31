@@ -41,6 +41,11 @@
             "@php artisan key:generate --ansi"
         ]
     },
+    "laravel": {
+      "providers": [
+        "DennisLui\\ModelPlus\\ModelPlusServiceProvider"
+      ]
+    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
