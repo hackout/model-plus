@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DennisLui\\ModelPlus": "src/"
+            "DennisLui\\ModelPlus\\": "src/"
         },
         "files": [
             "src\\Support\\helpers.php"
