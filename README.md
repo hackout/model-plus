@@ -1,7 +1,18 @@
 # LA扩展框架
 
-安装方式
+安装方式\
+命令行执行
 ``` composer require dennislui/model-plus ```
+
+Provider\
+在 ```config\app.php```中的```providers```项中插入\
+```
+    'providers' => [
+    	...,
+        DennisLui\ModelPlus\ModelPlusServiceProvider::class,
+
+    ],
+```
 
 ## 相关Relation
 
