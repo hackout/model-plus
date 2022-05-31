@@ -27,7 +27,7 @@ class ModelPlusServiceProvider extends ServiceProvider {
 	protected function bootCommand(): void{
 		$this->commands([
 			\DennisLui\ModelPlus\Commands\CreateModelCommand::class,
-			\DennisLui\ModelPlus\Commands\CreatePlusCommand::class,
+			\DennisLui\ModelPlus\Commands\CreateModuleCommand::class,
 		]);
 	}
 
@@ -43,16 +43,16 @@ class ModelPlusServiceProvider extends ServiceProvider {
 		], 'config');
 	}
 
-	protected function bootRoute(): void{
-		$routes = $this->getModules();
-		$this->app->routes(function () use ($routes) {
-			foreach ($routes as $route) {
-				Route::prefix($route['name'])->middleware('api')
-					->namespace($this->namespace)
-					->group($route['route']);
-			}
-		});
-	}
+    protected function bootRoute(): void{
+        $routes = $this->getModules();
+        $this->app->router->getRoutes(function () use ($routes) {
+            foreach ($routes as $route) {
+                Route::prefix($route['name'])->middleware('api')
+                    ->namespace($this->namespace)
+                    ->group($route['route']);
+            }
+        });
+    }
 
 	protected function bootMigrations(): void {
 		foreach ([CreateFilesTable::class] as $i => $migration) {

@@ -146,3 +146,31 @@ Route::prefix('模块名')->middleware('api')
 在模型中可使用create进行提交数组创建及```hasOne``` ```hasMany``` 的关系创建
 
 
+### Config
+
+在.env 中可设置参数 \
+```
+API_LIMIT = 60 #API请求限制每秒次数
+
+JSONENCODE = 256 #json_encode 编码， 
+```
+
+JSON编码表\
+|!----|----!|
+|标识 | int |
+|JSON_HEX_TAG|1|
+|JSON_HEX_AMP|2|
+|JSON_HEX_APOS|4|
+|JSON_HEX_QUOT|8|
+|JSON_FORCE_OBJECT|16|
+|JSON_NUMERIC_CHECK|32|
+|JSON_UNESCAPED_SLASHES|64|
+|JSON_PRETTY_PRINT|128|
+|JSON_UNESCAPED_UNICODE|256|
+|JSON_ERROR_DEPTH|1|
+|JSON_ERROR_STATE_MISMATCH|2|
+|JSON_ERROR_CTRL_CHAR|3|
+|JSON_ERROR_SYNTAX|4|
+|JSON_ERROR_UTF8|5|
+|JSON_OBJECT_AS_ARRAY|1|
+|JSON_BIGINT_AS_STRING|2|

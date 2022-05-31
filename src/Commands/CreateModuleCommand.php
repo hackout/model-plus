@@ -5,27 +5,27 @@ namespace DennisLui\ModelPlus\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
-class CreatePluginCommand extends Command {
+class CreateModuleCommand extends Command {
 	/**
 	 * The name and signature of the console command.
 	 *
 	 * @var string
 	 */
-	protected $signature = 'create:plugin {plugin}';
+	protected $signature = 'create:module {module}';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Create a Plugin';
+	protected $description = 'Create a module package';
 
 	/**
 	 * The type of class being generated.
 	 *
 	 * @var string
 	 */
-	protected $plugin_name;
+	protected $module_name;
 	protected $time;
 	protected $studly_name;
 	protected $snake_name;
@@ -37,9 +37,9 @@ class CreatePluginCommand extends Command {
 	 * @var array
 	 */
 	protected $stubs = [
-		'plugin/controller.stub' => 'Modules/{{studly_name}}/Controller/{{plural_name}}Controller.php',
-        'plugin/middleware.stub' => 'Modules/{{studly_name}}/Middleware/{{studly_name}}Middleware.php',
-        'plugin/route.stub' => 'Modules/{{studly_name}}/Route/route.php',
+		'module/controller.stub' => 'Modules/{{studly_name}}/Controller/{{plural_name}}Controller.php',
+        'module/middleware.stub' => 'Modules/{{studly_name}}/Middleware/{{studly_name}}Middleware.php',
+        'module/route.stub' => 'Modules/{{studly_name}}/Route/route.php',
 	];
 
 	/**
@@ -50,7 +50,7 @@ class CreatePluginCommand extends Command {
 	protected function prepareVars() {
 
 		return [
-			'name' => $this->plugin_name,
+			'name' => $this->module_name,
 		];
 	}
 	/**
@@ -65,7 +65,7 @@ class CreatePluginCommand extends Command {
 
 	protected function getVars() {
 		return [
-			'plugin_name' => $this->plugin_name,
+			'module_name' => $this->module_name,
 			'time' => $this->time,
 			'studly_name' => $this->studly_name,
 			'snake_name' => $this->snake_name,
@@ -118,21 +118,21 @@ class CreatePluginCommand extends Command {
 	 * @return int
 	 */
 	public function handle() {
-		$this->plugin_name = $this->argument('plugin');
-		if (!$this->plugin_name) {
-			return $this->error("请输入Plugin");
+		$this->module_name = $this->argument('module');
+		if (!$this->module_name) {
+			return $this->error("请输入Module");
 		}
 		if (!is_dir(app_path('Modules'))) {
 			mkdir(app_path('Modules'), 0775);
 		}
-        $this->snake_name = Str::snake($this->plugin_name);
-        $this->studly_name = Str::studly($this->plugin_name);
-        $this->studly_plural_name = Str::plural($this->plugin_name);
+        $this->snake_name = Str::snake($this->module_name);
+        $this->studly_name = Str::studly($this->module_name);
+        $this->studly_plural_name = Str::plural($this->module_name);
         $this->snake_plural_name = Str::snake($this->studly_plural_name);
 		if (is_dir(app_path('Modules/' . $this->studly_plural_name))) {
-			return $this->error("Plugin 目录已存在");
+			return $this->error("Module 目录已存在");
 		}
 		$this->makeTemplate();
-		$this->info('创建Plugin成功');
+		$this->info('创建Module成功');
 	}
 }
