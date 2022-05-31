@@ -7,7 +7,7 @@ use \Illuminate\Support\Facades\Config;
 use \Staudenmeir\EloquentHasManyDeep\HasRelationships as DeepRelations;
 
 class Model extends \Illuminate\Database\Eloquent\Model {
-	use HasFactory, DeepRelations, Traits\Purgeable;
+	use HasFactory, DeepRelations, \DennisLui\ModelPlus\Traits\Purgeable;
 
 
 	protected $couldHost = '';
