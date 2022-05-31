@@ -18,8 +18,6 @@
         "type": "vcs",
         "url": "git@gitlab.com:foobar/example-package.git"
     }],
-    "require-dev": {
-    },
     "autoload": {
         "psr-4": {
             "DennisLui\\ModelPlus\\": "src/"
@@ -27,9 +25,6 @@
         "files": [
             "src\\Support\\helpers.php"
         ]
-    },
-    "autoload-dev": {
-
     },
     "scripts": {
         "post-autoload-dump": [
@@ -45,11 +40,6 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
     },
     "config": {
         "optimize-autoloader": true,
