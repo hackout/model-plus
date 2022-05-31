@@ -28,7 +28,7 @@ public function thumbnails()
 ```
 #### attach 附件关系的上传
 文件上传依托PHP中的```fileinfo```扩展进行，使用前请务必安装\
-通过应用类```DennisLui\ModelPlus\Models\File```中的```makeData```方法进行上传。
+通过应用类```DennisLui\ModelPlus\Models\File```中的```makeData```方法进行上传。\
 ```makeData```方法支持上传类型: ```UploadFile```,```sqlFileInfo```图片地址,```base64_encode``` 转码文件\
 对于Base64的文件需要携带头```data:image/png;base64,代码``` \
 Request提交的文件必须要是UploadFile容器的\
@@ -139,7 +139,7 @@ Route::prefix('模块名')->middleware('api')
 ``` public function beforeSave(){ } ``` 等同于 ```saving```\
 ``` public function afterSave(){ } ``` 等同于 ```saved```\
 ``` public function beforeDelete(){ } ``` 等同于 ```deleting```\
-``` public function afterDelete(){ } ``` 等同于 ```deleted```\
+``` public function afterDelete(){ } ``` 等同于 ```deleted```
 
 ### Create多级/数组方法
 
