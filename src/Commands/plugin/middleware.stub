@@ -1,0 +1,27 @@
+<?php namespace App\Modules\{{studly_name}}\Middleware;
+
+
+use Closure;
+use Illuminate\Http\Request;
+/**
+ * {{studly_name}} APP中间件
+ */
+
+class {{studly_name}}Middleware
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        /**
+         * Your Code
+         */
+
+        return $next($request);
+    }
+}

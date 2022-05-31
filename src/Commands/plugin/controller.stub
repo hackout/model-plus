@@ -1,0 +1,7 @@
+<?php  namespace App\Modules\{{studly_name}}\Controller;
+
+class {{studly_name}}Controller extends \App\Http\Controllers\Controller {
+    /**
+     * App控制器
+     */
+}

@@ -1,0 +1,11 @@
+<?php
+use Illuminate\Support\Facades\Route;
+/**
+ * {{studly_name}} APP路由接口
+ */
+
+/*
+Route::get('/', function () {
+    return response('Hello World', 200, []);
+});
+*/

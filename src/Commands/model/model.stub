@@ -1,0 +1,85 @@
+<?php namespace App\Models;
+
+class {{studly_name}} extends \DennisLui\ModelPlus\Models\Model {
+
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var string[]
+	 */
+	protected $fillable = [];
+
+	/**
+	 * fill过滤参数
+	 * @var array
+	 */
+	protected $purgeable = [];
+
+    /**
+     * @var string The database table used by the model.
+     */
+    public $table = '{{snake_plural_name}}';
+	/**
+	 * The attributes that should be hidden for serialization.
+	 *
+	 * @var array
+	 */
+	protected $hidden = [];
+
+	protected $appends = [];
+
+	/**
+	 * The attributes that should be cast.
+	 *
+	 * @var array
+	 */
+	protected $casts = [];
+
+	/**
+	 * [beforeCreate description]
+	 * @return [type] [description]
+	 */
+	public function beforeCreate(){
+
+	}
+	
+	/**
+	 * [afterCreate description]
+	 * @return [type] [description]
+	 */
+	public function afterCreate(){
+
+	}
+	
+	/**
+	 * [beforeSave description]
+	 * @return [type] [description]
+	 */
+	public function beforeSave(){
+
+	}
+	
+	/**
+	 * [afterSave description]
+	 * @return [type] [description]
+	 */
+	public function afterSave(){
+
+	}
+	
+	/**
+	 * [beforeDelete description]
+	 * @return [type] [description]
+	 */
+	public function beforeDelete(){
+
+	}
+	
+	/**
+	 * [afterDelete description]
+	 * @return [type] [description]
+	 */
+	public function afterDelete(){
+
+	}
+}
