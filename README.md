@@ -2,7 +2,18 @@
 
 安装方式\
 命令行执行
-``` composer require dennislui/model-plus ```
+``` composer require dennislui/model-plus ```\
+
+在composer.json插入 \
+```
+
+    "repositories": [
+        {
+            "url": "git@github.com:hackout/model-plus.git",
+            "type": "git"
+        }
+    ],
+```
 
 Provider\
 在 ```config\app.php```中的```providers```项中插入\
