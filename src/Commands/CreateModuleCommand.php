@@ -77,11 +77,11 @@ class CreateModuleCommand extends Command {
     protected function getDirVars()
     {
         return [
-            app_path('Modules/' . $this->studly_plural_name),
-            app_path('Modules/' . $this->studly_plural_name . '/Controller'),
-            app_path('Modules/' . $this->studly_plural_name . '/Middleware'),
-            app_path('Modules/' . $this->studly_plural_name . '/Validation'),
-            app_path('Modules/' . $this->studly_plural_name . '/Route'),
+            app_path('Modules/' . $this->studly_name),
+            app_path('Modules/' . $this->studly_name . '/Controller'),
+            app_path('Modules/' . $this->studly_name . '/Middleware'),
+            app_path('Modules/' . $this->studly_name . '/Validation'),
+            app_path('Modules/' . $this->studly_name . '/Route'),
         ];
     }
 
