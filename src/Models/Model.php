@@ -9,9 +9,6 @@ use \Staudenmeir\EloquentHasManyDeep\HasRelationships as DeepRelations;
 class Model extends \Illuminate\Database\Eloquent\Model {
 	use HasFactory, DeepRelations, \DennisLui\ModelPlus\Traits\Purgeable;
 
-
-	protected $couldHost = '';
-
 	/**
 	 * The attributes that should be cast.
 	 *
@@ -60,15 +57,6 @@ class Model extends \Illuminate\Database\Eloquent\Model {
 		}
 	}
 
-	protected function couldHostInfo()
-	{
-		return Config::get("modelplus.hosts")[$this->cloudHost];
-	}
-
-	public function getCouldHost()
-	{
-		return $this->cloudHostInfo();
-	}
 
 
     /**
@@ -79,7 +67,6 @@ class Model extends \Illuminate\Database\Eloquent\Model {
      */
     public function newEloquentBuilder($query)
     {
-    	$this->cloudHost = Config::get('modelplus.host','local');
         return new Builder($query);
     }
 }
