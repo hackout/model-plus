@@ -10,7 +10,7 @@ class Model extends \Illuminate\Database\Eloquent\Model {
 	use HasFactory, DeepRelations, Traits\Purgeable;
 
 
-	protected $couldHost = Config::get('modelplus.host','local');
+	protected $couldHost = '';
 
 	/**
 	 * The attributes that should be cast.
@@ -79,6 +79,7 @@ class Model extends \Illuminate\Database\Eloquent\Model {
      */
     public function newEloquentBuilder($query)
     {
+    	$this->cloudHost = Config::get('modelplus.host','local');
         return new Builder($query);
     }
 }

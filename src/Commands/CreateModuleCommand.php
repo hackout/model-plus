@@ -37,7 +37,7 @@ class CreateModuleCommand extends Command {
 	 * @var array
 	 */
 	protected $stubs = [
-		'module/controller.stub' => 'Modules/{{studly_name}}/Controller/{{plural_name}}Controller.php',
+		'module/controller.stub' => 'Modules/{{studly_name}}/Controller/{{studly_name}}Controller.php',
         'module/middleware.stub' => 'Modules/{{studly_name}}/Middleware/{{studly_name}}Middleware.php',
         'module/route.stub' => 'Modules/{{studly_name}}/Route/route.php',
 	];
