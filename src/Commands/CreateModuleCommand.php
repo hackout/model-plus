@@ -98,7 +98,7 @@ class CreateModuleCommand extends Command {
 		foreach ($stubs as $key => $rs) {
 			$twig = new \Twig\Environment($loader);
 			$file_name = $twig->render($key, $this->getVars());
-			$files[$file_name] = file_get_contents(dirname(__DIR__).'/' . $key);
+			$files[$file_name] = file_get_contents(dirname(__DIR__).'/Commands/' . $key);
 		}
 		if (!$files) {
 			return;
