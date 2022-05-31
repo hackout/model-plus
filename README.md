@@ -167,8 +167,8 @@ JSONENCODE = 256 #json_encode 编码，
 ```
 
 JSON编码表\
-|!----|----!|
 |标识 | int |
+|:----|----:|
 |JSON_HEX_TAG|1|
 |JSON_HEX_AMP|2|
 |JSON_HEX_APOS|4|
