@@ -133,8 +133,9 @@ Route::prefix('模块名')->middleware('api')
 ```
 
 
-#### 辅助函数
+## 辅助函数
 
+```array_is_list``` 检查数组是否为列表,适用低于PHP8.0版本\
 ```module_class``` 扫描模块\
 ```scan_alldir``` 扫描目录\
 ```scan_files``` 扫描文件\
@@ -147,6 +148,65 @@ Route::prefix('模块名')->middleware('api')
 ```file_download``` 返回文件下载\
 ```file_view``` 返回文件预览
 
+## Collection 扩展
+
+### reverse_keys 翻转Collection模型
+
+参数说明:\
+```keyName``` 当前数组中的下级键名\
+```otherKey``` 翻转后下级键名\
+```secondKey``` 下级翻转的键值
+示例代码:
+```
+$collection = collection([
+	"id"=>1,
+	"name" => "数组1",
+	"desc" => "数组1说明",
+	"children" => [
+		["id"=>1,"name"=>"子级1"],
+		["id"=>2,"name"=>"子级2"],
+		["id"=>3,"name"=>"子级3"],
+	]
+]);
+$collection->reverse_keys('children', 'reverse_children', 'id');
+$collection->all();
+
+[
+	[
+		"id" => 1,
+		"name" => "子级1",
+		"reverse_children" => [
+			[
+				"id" => 1,
+				"name" => "数组1",
+				"desc" => "数组1说明"
+			]
+		]
+	],
+	[
+		"id" => 2,
+		"name" => "子级2",
+		"reverse_children" => [
+			[
+				"id" => 1,
+				"name" => "数组1",
+				"desc" => "数组1说明"
+			]
+		]
+	],
+	[
+		"id" => 3,
+		"name" => "子级3",
+		"reverse_children" => [
+			[
+				"id" => 1,
+				"name" => "数组1",
+				"desc" => "数组1说明"
+			]
+		]
+	]
+]
+```
 
 ## Model 模型
 

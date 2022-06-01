@@ -1,6 +1,25 @@
 <?php
 
 /**
+ * Builder a array_is_list function for php less then 8.0 version.
+ * 
+ * @var array $array
+ * @return boolean
+ */
+if (!function_exists('array_is_list')) {
+	function array_is_list($array = []) {
+		if(!$array) return true;
+		$vars = implode('.',array_keys($array));
+		$arr = [];
+		for($i=1;$i <= count($array);$i++)
+		{
+			$arr[] = $i;
+		}
+		return implode('.',$arr) == $vars;
+	}
+}
+
+/**
  * Creating a new modules class instance
  * 
  * @var string $module_name
