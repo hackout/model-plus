@@ -4,6 +4,7 @@ use DennisLui\ModelPlus\Eloquent\Builder;
 use \Illuminate\Database\Eloquent\Factories\HasFactory;
 use \Illuminate\Support\Arr;
 use \Illuminate\Support\Facades\Config;
+use \Illuminate\Support\Collection;
 use \Staudenmeir\EloquentHasManyDeep\HasRelationships as DeepRelations;
 
 class Model extends \Illuminate\Database\Eloquent\Model {
@@ -57,7 +58,17 @@ class Model extends \Illuminate\Database\Eloquent\Model {
 		}
 	}
 
-
+	/**
+	 * 翻转模型
+	 * @param  string|null $keyName  
+	 * @param  string|null $otherKey 
+	 * @param  string|null $secondKey
+	 * @return Collection
+	 */
+	public function reverse_keys($keyName = null,$otherKey = null,$secondKey = null) : Collection
+	{
+		return Collection::wrap($this->toArray())->reverse_keys($keyName,$otherKey,$secondKey);
+	}
 
     /**
      * Create a new Eloquent query builder for the model.

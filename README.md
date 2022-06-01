@@ -212,6 +212,23 @@ $collection->all();
 ]
 ```
 
+### recursive 快速递归数组
+将collection 中的数组进行快读递归\
+示例代码:
+```
+$collection->recursive();
+```
+
+### rotate 数组旋转后移
+将collection 中的数组进行旋转后移\
+示例代码:
+```
+$collection = collect([1,2,3]);
+$collection->rotate(2);
+
+[3,1,2]
+```
+
 ## Model 模型
 
 ``` $fillable ``` 可提交字段\
