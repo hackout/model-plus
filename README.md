@@ -90,16 +90,16 @@ $fileModel = FileModel::makeData($file,'avatar',$user);
 ```
 <?php namespace App\Models;
 class User{
-	public function posts()
-	{
-		return $this->hasMany(Post::class);
-	}
+ public function posts()
+ {
+  return $this->hasMany(Post::class);
+ }
 }
 class Post{
-	public function comments()
-	{
-		return $this->hasMany(Comment::class);
-	}
+ public function comments()
+ {
+  return $this->hasMany(Comment::class);
+ }
 }
 
 $comments = $user->posts()->comments()->get(); //获取comments collection
@@ -159,52 +159,55 @@ Route::prefix('模块名')->middleware('api')
 示例代码:
 ```
 $collection = collection([
-	"id"=>1,
-	"name" => "数组1",
-	"desc" => "数组1说明",
-	"children" => [
-		["id"=>1,"name"=>"子级1"],
-		["id"=>2,"name"=>"子级2"],
-		["id"=>3,"name"=>"子级3"],
-	]
+ "id"=>1,
+ "name" => "数组1",
+ "desc" => "数组1说明",
+ "children" => [
+  ["id"=>1,"name"=>"子级1"],
+  ["id"=>2,"name"=>"子级2"],
+  ["id"=>3,"name"=>"子级3"],
+ ]
 ]);
+
+
 $collection->reverse_keys('children', 'reverse_children', 'id');
 $collection->all();
 
+
 [
-	[
-		"id" => 1,
-		"name" => "子级1",
-		"reverse_children" => [
-			[
-				"id" => 1,
-				"name" => "数组1",
-				"desc" => "数组1说明"
-			]
-		]
-	],
-	[
-		"id" => 2,
-		"name" => "子级2",
-		"reverse_children" => [
-			[
-				"id" => 1,
-				"name" => "数组1",
-				"desc" => "数组1说明"
-			]
-		]
-	],
-	[
-		"id" => 3,
-		"name" => "子级3",
-		"reverse_children" => [
-			[
-				"id" => 1,
-				"name" => "数组1",
-				"desc" => "数组1说明"
-			]
-		]
-	]
+ [
+  "id" => 1,
+  "name" => "子级1",
+  "reverse_children" => [
+   [
+    "id" => 1,
+    "name" => "数组1",
+    "desc" => "数组1说明"
+   ]
+  ]
+ ],
+ [
+  "id" => 2,
+  "name" => "子级2",
+  "reverse_children" => [
+   [
+    "id" => 1,
+    "name" => "数组1",
+    "desc" => "数组1说明"
+   ]
+  ]
+ ],
+ [
+  "id" => 3,
+  "name" => "子级3",
+  "reverse_children" => [
+   [
+    "id" => 1,
+    "name" => "数组1",
+    "desc" => "数组1说明"
+   ]
+  ]
+ ]
 ]
 ```
 
