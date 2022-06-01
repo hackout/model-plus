@@ -241,7 +241,7 @@ API_LIMIT = 60 #API请求限制每秒次数
 JSONENCODE = 256 #json_encode 编码， 
 ```
 
-JSON编码表\
+JSON编码表
 |标识 | int |
 |:----|----:|
 |JSON_HEX_TAG|1|
