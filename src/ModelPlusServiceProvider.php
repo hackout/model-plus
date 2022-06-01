@@ -1,26 +1,24 @@
 <?php namespace DennisLui\ModelPlus;
 
 use CreateFilesTable;
+use DennisLui\ModelPlus\Support\CollectionServer;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use \Illuminate\Support\Facades\Config;
 use \Illuminate\Support\Collection;
-use DennisLui\ModelPlus\Support\CollectionServer;
+use \Illuminate\Support\Facades\Config;
 
 class ModelPlusServiceProvider extends ServiceProvider {
-	public function boot(): void {
-		if ($this->app->runningInConsole()) {
-			$this->bootConfig();
-			$this->bootMigrations();
-			$this->bootDefaultDisk();
-			$this->bootRoute();
-			$this->bootCommand();
-			$this->bootMacro();
-		}
+	public function boot(): void{
+		$this->bootConfig();
+		$this->bootMigrations();
+		$this->bootDefaultDisk();
+		$this->bootRoute();
+		$this->bootCommand();
+		$this->bootMacro();
 	}
 
 	public function register(): void{
@@ -34,41 +32,36 @@ class ModelPlusServiceProvider extends ServiceProvider {
 		]);
 	}
 
-	protected function bootMacro():void
-	{
-		foreach(CollectionServer::getFunctions() as $macro=>$function)
-		{
-			Collection::macro($macro,function() use ($function){
+	protected function bootMacro(): void {
+		foreach (CollectionServer::getFunctions() as $macro => $function) {
+			Collection::macro($macro, function () use ($function) {
 				return (new CollectionServer($this))->{$function}(func_get_args());
 			});
 		}
 	}
 
-	protected function bootDefaultDisk(): void
-	{
+	protected function bootDefaultDisk(): void {
 		if (!is_dir(app_path('Modules'))) {
 			mkdir(app_path('Modules'), 0755);
 		}
 	}
 
-	protected function bootConfig(): void
-	{
+	protected function bootConfig(): void{
 		$this->publishes([
 			__DIR__ . '/../config/modelplus.php' => config_path('modelplus.php'),
 		], 'config');
 	}
 
-    protected function bootRoute(): void
-    {
-        $routes = $this->getModules();
-        $this->app->router->getRoutes(function () use ($routes) {
-            foreach ($routes as $route) {
-                Route::prefix($route['name'])->middleware('api')
-                    ->namespace($this->namespace)
-                    ->group($route['route']);
-            }
-        });
-    }
+	protected function bootRoute(): void{
+		$routes = $this->getModules();
+		$this->app->router->getRoutes(function () use ($routes) {
+			foreach ($routes as $route) {
+				Route::prefix($route['name'])->middleware('api')
+					->namespace($this->namespace)
+					->group($route['route']);
+			}
+		});
+	}
 
 	protected function bootMigrations(): void {
 		foreach ([CreateFilesTable::class] as $i => $migration) {
