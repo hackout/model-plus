@@ -31,22 +31,21 @@ class CollectionServer {
 	 * @return Collection
 	 */
 	public function rotate(): Collection {
-			list($offset) = Collection::wrap(func_get_args()[0])->pad(0, 1);
-			$offset = $offset ?: 1;
-            if ($this->isEmpty()) {
-                return Collection::wrap([]);
-            }
+		list($offset) = Collection::wrap(func_get_args()[0])->pad(0, 1);
+		$offset = $offset ?: 1;
+		if ($this->isEmpty()) {
+			return Collection::wrap([]);
+		}
 
-            $count = $this->count();
+		$count = $this->count();
 
-            $offset %= $count;
+		$offset %= $count;
 
-            if ($offset < 0) {
-                $offset += $count;
-            }
+		if ($offset < 0) {
+			$offset += $count;
+		}
 
-            return Collection::wrap($this->slice($offset)->merge($this->take($offset)));
-		});
+		return Collection::wrap($this->slice($offset)->merge($this->take($offset)));
 	}
 
 	/**
