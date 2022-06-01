@@ -7,7 +7,7 @@ use \Illuminate\Support\Facades\Config;
 use \Staudenmeir\EloquentHasManyDeep\HasRelationships as DeepRelations;
 
 class Model extends \Illuminate\Database\Eloquent\Model {
-	use HasFactory, DeepRelations, \DennisLui\ModelPlus\Traits\Purgeable;
+	use HasFactory, DeepRelations, \DennisLui\ModelPlus\Traits\Purgeable, \DennisLui\ModelPlus\Traits\HasRelationships;
 
 	/**
 	 * The attributes that should be cast.

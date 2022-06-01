@@ -48,7 +48,7 @@ trait RelationPlus
      * @param  baseRelation $type
      * @return array
      */
-    protected function pluckParentId(BaseBuilder $query,BaseRelation $type) : array
+    protected function pluckParentId(BaseBuilder $query,BaseRelation $type)
     {
         return $query->get()->pluck($type->getRelated()->getKeyName())->toArray() ?: [];
     }
@@ -60,7 +60,7 @@ trait RelationPlus
      * @param  array        $macroKey
      * @return BaseBuilder
      */
-    protected function nextRelationQuery(BaseRelation $type,(array) $macroKey) : BaseBuilder
+    protected function nextRelationQuery(BaseRelation $type,array $macroKey) : BaseBuilder
     {
         return $type->getRelated()->whereIn($type->getRelated()->getKeyName(),$macroKey);
     }
@@ -72,7 +72,7 @@ trait RelationPlus
      * @param  array  $macroKey
      * @return Collection
      */
-    protected function nextRelationCollection(BaseRelation $type,(array) $macroKey) : Collection
+    protected function nextRelationCollection(BaseRelation $type,array $macroKey) : Collection
     {
         return $this->nextRelationQuery($type,$macroKey)->get();
     }

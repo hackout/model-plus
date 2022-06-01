@@ -40,14 +40,6 @@ trait HasRelationships
      */
     protected $touches = [];
 
-    /**
-     * The many to many relationship methods.
-     *
-     * @var string[]
-     */
-    public static $manyMethods = [
-        'belongsToMany', 'morphToMany', 'morphedByMany', 'AttachMany',
-    ];
 
     /**
      * The relation resolver callbacks.
