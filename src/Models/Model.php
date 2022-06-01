@@ -11,6 +11,18 @@ class Model extends \Illuminate\Database\Eloquent\Model {
 	use HasFactory, DeepRelations, \DennisLui\ModelPlus\Traits\Purgeable, \DennisLui\ModelPlus\Traits\HasRelationships;
 
 	/**
+	 * The model connects another host
+	 * @var string
+	 */
+	protected $cloudHost = "localhost";
+
+	/**
+	 * The isCloud is a switch off / on for other host connect.
+	 * @var boolean
+	 */
+	protected $isCloud = false;
+
+	/**
 	 * The attributes that should be cast.
 	 *
 	 * @var array
