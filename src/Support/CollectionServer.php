@@ -57,7 +57,7 @@ class CollectionServer {
 			$value = Collection::wrap($value);
 			if($value->isNotEmpty() && array_is_list($value->toArray()))
 			{
-				$value->each(function($v,$k) use ($array,$keyName,$secondKey){
+				$value->each(function($v,$k) use ($array,$keyName,$secondKey,$children){
 					$v = Collection::wrap($v);
 					$primary = Collection::wrap($v->pull($keyName));
 					if($primary->isNotEmpty() && array_is_list($primary->toArray()))
@@ -73,7 +73,7 @@ class CollectionServer {
 						});
 					}else{
 						$primaryKey = !$primary->has($secondKey) ? md5($primary->toJson()) : $primary->pull($secondKey);
-						$value->put($secondKey,$primaryKey);
+						$v->put($secondKey,$primaryKey);
 						$children->push($v->toArray());
 						$arr = !$array->has($primaryKey) ? [] : $array->pull($primaryKey);
 						$arr[] = $primary->toArray();
