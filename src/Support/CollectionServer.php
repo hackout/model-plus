@@ -15,7 +15,7 @@ class CollectionServer {
 	}
 
 	public static function getFunctions() {
-		return [];
+		return ['reverse_keys'=>'reverse_keys'];
 	}
 
 	/**
@@ -25,22 +25,24 @@ class CollectionServer {
 	 * @param  string|null $secondKey
 	 * @return Collection
 	 */
-	public function reverse_keys($keyName = 'children', $otherKey = 'children', $secondKey = null): Collection {
+	public function reverse_keys(): Collection {
+		list($keyName,$otherKey,$secondKey) = Collection::wrap(func_get_args()[0])->pad(0,3);
 		if ($this->collection->isEmpty()) {
 			return $this->collection;
 		}
 
 		if (!array_is_list($this->collection->toArray())) {
 			if ($this->collection->has($keyName) && $this->collection->get($keyName)) {
-				$parent = $this->collection->pull($keyName);
+				$parent = Collection::wrap($this->collection->pull($keyName));
 			} else {
 				$parent = Collection::wrap([]);
 			}
 			$children = $this->collection;
 			if($parent->isNotEmpty() && array_is_list($parent->toArray()))
 			{
-				$parent->each(function($value,$key) use($children,$otherKey){
-					$value->put($otherKey,$children);
+				$parent = $parent->map(function($value,$key) use($children,$otherKey){
+					$value[$otherKey] = $children;
+					return $value;
 				});
 			}else{
 				$parent->put($otherKey, $children);
@@ -48,54 +50,66 @@ class CollectionServer {
 			return $parent;
 		}
 
-		$collection = $array = $children = Collection::wrap([]);
-
-		$this->collection->each(function ($value, $key) use ($secondKey, $keyName, $children, $array) {
-			if ($value->has($keyName) && $value->get($keyName)) {
-				$parent = $value->pull($keyName);
-			} else {
-				$parent = Collection::wrap([]);
-			}
-			if($parent->isNotEmpty() && array_is_list($parent))
+		$collection = Collection::wrap([]);
+		$array = Collection::wrap([]);
+		$children = Collection::wrap([]);
+		$this->collection->each(function($value,$key) use ($secondKey,$keyName,$children,$array){
+			$value = Collection::wrap($value);
+			if($value->isNotEmpty() && array_is_list($value->toArray()))
 			{
-				$parent->each(function($v,$k) use ($value,$array,$children,$secondKey){
-					$mainKey = $secondKey ? $v->get($secondKey) : md5($v->toJson());
-					if ($children->has($mainKey)) {
-						$children->each(function ($vv, $kk) use ($mainKey, $value) {
-							if ($kk == $mainKey) {
-								$vv->push($value);
-							}
+				$value->each(function($v,$k) use ($array,$keyName,$secondKey){
+					$v = Collection::wrap($v);
+					$primary = Collection::wrap($v->pull($keyName));
+					if($primary->isNotEmpty() && array_is_list($primary->toArray()))
+					{
+						$primary->each(function($vv,$kk) use($children,$secondKey,$v,$array){
+							$vv = Collection::wrap($vv);
+							$primaryKey = !$vv->has($secondKey) ? md5($vv->toJson()) : $vv->pull($secondKey);
+							$vv->put($secondKey,$primaryKey);
+							$children->push($vv->toArray());
+							$arr = !$array->has($primaryKey) ? [] : $array->pull($primaryKey);
+							$arr[] = $v;
+							$array->put($primaryKey,$arr);
 						});
-					} else {
-						$children->put($mainKey, Collection::wrap([$value]));
+					}else{
+						$primaryKey = !$primary->has($secondKey) ? md5($primary->toJson()) : $primary->pull($secondKey);
+						$value->put($secondKey,$primaryKey);
+						$children->push($v->toArray());
+						$arr = !$array->has($primaryKey) ? [] : $array->pull($primaryKey);
+						$arr[] = $primary->toArray();
+						$array->put($primaryKey,$arr);
 					}
-					$array->put($mainKey, $v);
 				});
 			}else{
-				$mainKey = $secondKey ? $parent->get($secondKey) : md5($parent->toJson());
-				if ($children->has($mainKey)) {
-					$children->each(function ($v, $k) use ($mainKey, $value) {
-						if ($k == $mainKey) {
-							$v->push($value);
-						}
+				$primary = Collection::wrap($value->pull($keyName));
+				if($primary->isNotEmpty() && array_is_list($primary->toArray()))
+				{
+					$primary->each(function($v,$k) use($children,$secondKey,$value,$array){
+						$v = Collection::wrap($v);
+						$primaryKey = !$v->has($secondKey) ? md5($v->toJson()) : $v->pull($secondKey);
+						$v->put($secondKey,$primaryKey);
+						$children->push($v->toArray());
+						$arr = !$array->has($primaryKey) ? [] : $array->pull($primaryKey);
+						$arr[] = $value->toArray();
+						$array->put($primaryKey,$arr);
 					});
-				} else {
-					$children->put($mainKey, Collection::wrap([$value]));
+				}else{
+					$primaryKey = !$primary->has($secondKey) ? md5($primary->toJson()) : $primary->pull($secondKey);
+					$value->put($secondKey,$primaryKey);
+					$children->push($value->toArray());
+					$arr = !$array->has($primaryKey) ? [] : $array->pull($primaryKey);
+					$arr[] = $primary->toArray();
+					$array->put($primaryKey,$arr);
 				}
-				$array->put($mainKey, $parent);
 			}
 		});
-
-		$array->each(function ($value, $key) use ($children, $collection, $otherKey) {
-			if ($value->has($otherKey)) {
-				$value->each(function ($v, $k) use ($children, $key, $otherKey) {
-					if ($k == $otherKey) {
-						$v->push($children->get($key));
-					}
-				});
-			} else {
-				$value->put($otherKey, $children->get($key));
-			}
+		$unique = $children->unique($secondKey);
+		$unique->each(function($value,$key) use ($array,$secondKey,$otherKey,$collection)
+		{
+			$value = Collection::wrap($value);
+			$primaryKey = $value->pull($secondKey);
+			$value->put($secondKey,$primaryKey);
+			$value->put($otherKey,$array->get($primaryKey));
 			$collection->push($value);
 		});
 

@@ -36,10 +36,10 @@ class ModelPlusServiceProvider extends ServiceProvider {
 
 	protected function bootMacro():void
 	{
-		foreach(CollectionServer::getFunctions() as $macro=>$funcion)
+		foreach(CollectionServer::getFunctions() as $macro=>$function)
 		{
-			Collection::macro($macro,function($parameters) use ($function){
-				return (new CollectionServer($this))->{$function}($parameters);
+			Collection::macro($macro,function() use ($function){
+				return (new CollectionServer($this))->{$function}(func_get_args());
 			});
 		}
 	}

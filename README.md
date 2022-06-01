@@ -158,7 +158,7 @@ Route::prefix('模块名')->middleware('api')
 ```secondKey``` 下级翻转的键值
 示例代码:
 ```
-$collection = collection([
+$collection = collect([
  "id"=>1,
  "name" => "数组1",
  "desc" => "数组1说明",
