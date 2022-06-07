@@ -39,38 +39,6 @@ class Model extends \Illuminate\Database\Eloquent\Model {
 	protected $dateFormat = 'Y-m-d H:i:s';
 
 	/**
-	 * Concat saving hooks
-	 *
-	 * @method beforeSave()
-	 * @method beforeCreate()
-	 * @method beforeUpdate()
-	 * @method beforeDelete()
-	 * @method afterSave()
-	 * @method afterCreate()
-	 * @method afterUpdate()
-	 * @method afterDelete()
-	 * 
-	 * @return void
-	 */
-	public static function boot() {
-		parent::boot();
-		$myself = get_called_class();
-		$hooks = array('before' => 'ing', 'after' => 'ed');
-		$radicals = array('sav', 'creat', 'updat', 'delet');
-		foreach ($radicals as $rad) {
-			foreach ($hooks as $hook => $event) {
-				$method = $hook . ucfirst($rad) . 'e';
-				if (method_exists($myself, $method)) {
-					$eventMethod = $rad . $event;
-					self::$eventMethod(function ($model) use ($method) {
-						return $model->$method($model);
-					});
-				}
-			}
-		}
-	}
-
-	/**
 	 * 翻转模型
 	 * @param  string|null $keyName  
 	 * @param  string|null $otherKey 
